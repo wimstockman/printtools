@@ -1,0 +1,8 @@
+DYMOBOL	/home/wim/printtools/dymobol3.sh $nnn
+PRINT BROTHER	lp -d BROLPD -o BRMonoColor=Mono -o BRResolution=PlainFast  $nnn
+Max ETiket	/home/wim/printtools/maxetiket.sh $nnn
+NUP-2x2	pdfnup --nup 2x2 $nnn
+CROP PAKKETZEGEL	crop-pdf $nnn 25 410 585 290 
+BATLAND STICKER	lp -d DYMO /home/wim/printtools/batlandsticker.pdf
+ECHO	echo $nnn
+printenv	printenv

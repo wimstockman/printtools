@@ -4,15 +4,12 @@ SimplePrint(){
 	lp -d BROLPD -o fit-to-page -o Media=A4 -o BRMonoColor=Mono -o BRResolution=PlainFast -o BRBiDIR=OFF $1
 }
 MaxEtiket(){
-	fontsize=16
-	echo $fontsize
-	pages=$(cat /tmp/o.txt |  iconv -futf-8 -tlatin1 | enscript --margins=:4:: -MAdress -o"/tmp/v.ps" -B -r -fHelvetica@$fontsize 2>&1 | awk '{print $2}' | grep -o '[0-9]*') 
-	echo "pages:-"$pages"-"
-	while [ $pages -gt 1 ]
+	fontsize=20
+	while cat /tmp/o.txt  | enscript -MAdress -o"/tmp/v.ps" -B -r -fHelvetica@$fontsize 2>&1 | awk '/page/{if ($2 != 1) { exit 3;}} NR > 1 {exit 2;}'; 
+	(($? != 0 ));
 	do
-	fontsize=$(($fontsize - 1))
-	echo "fontsize:"$fontsize
-	pages=$(cat /tmp/o.txt  | iconv -futf-8 -tlatin1 | enscript --margins=:4:: -MAdress -o"/tmp/v.ps" -B -r -fHelvetica@$fontsize 2>&1 | awk '{print $2}' | grep -o '[0-9]*') 
+		fontsize=$(($fontsize - 1))
+		echo "fontsize:"$fontsize"pts"
 	done
 }
 

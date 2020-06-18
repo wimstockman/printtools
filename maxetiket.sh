@@ -10,3 +10,4 @@ do
 	fontsize=$(($fontsize - 1))
 	echo "fontsize:"$fontsize"pts"
 done
+lp -d DYMO /tmp/v.ps

@@ -4,7 +4,7 @@
 # Written by Wim Stockman
 # Last Updated on 20200618
 fontsize=20
-while cat /tmp/o.txt  | enscript -MAdress -o"/tmp/v.ps" -B -r -fHelvetica@$fontsize 2>&1 | awk '/page/{if ($2 != 1) { exit 3;}} NR > 1 {exit 2;}'; 
+while cat $PWD/$1 | enscript -MAdress -o"/tmp/v.ps" -B -r -fHelvetica@$fontsize 2>&1 | awk '/page/{if ($2 != 1) { exit 3;}} NR > 1 {exit 2;}'; 
 (($? != 0 ));
 do
 	fontsize=$(($fontsize - 1))
